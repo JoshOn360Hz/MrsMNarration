@@ -50,6 +50,15 @@ const formatTime = (seconds) => {
 };
 
 const players = [...document.querySelectorAll("[data-audio-player]")];
+document.querySelectorAll(".script-toggle").forEach((toggle) => {
+  const script = document.getElementById(toggle.getAttribute("aria-controls"));
+  toggle.addEventListener("click", () => {
+    const expanded = toggle.getAttribute("aria-expanded") === "true";
+    toggle.setAttribute("aria-expanded", String(!expanded));
+    script.hidden = expanded;
+  });
+});
+
 players.forEach((player) => {
   const audio = player.querySelector("audio");
   const button = player.querySelector(".play-button");
@@ -84,9 +93,11 @@ players.forEach((player) => {
     }
   });
 
-  audio.addEventListener("loadedmetadata", () => {
+  const updateDuration = () => {
     duration.textContent = formatTime(audio.duration);
-  });
+  };
+  audio.addEventListener("loadedmetadata", updateDuration);
+  if (audio.readyState >= 1) updateDuration();
   audio.addEventListener("timeupdate", () => {
     const percentage = audio.duration ? (audio.currentTime / audio.duration) * 100 : 0;
     progress.value = percentage;
