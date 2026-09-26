@@ -107,7 +107,7 @@ h1 em, h2 em { color: var(--olive); font-weight: 500; }
 .section { padding: var(--section-pad) var(--page-pad); }
 .about { display: grid; grid-template-columns: .16fr .95fr 1.05fr; column-gap: clamp(2rem, 6vw, 7rem); row-gap: 4rem; position: relative; }
 .section-number { color: var(--clay); font: italic 500 1rem var(--serif); padding-top: .25rem; }
-.about-heading h2, .portfolio h2 { max-width: 10ch; font: 500 clamp(2.8rem, 5.3vw, 5.6rem)/1 var(--serif); letter-spacing: -.045em; }
+.about-heading h2, .portfolio h2, .testimonials h2 { max-width: 10ch; font: 500 clamp(2.8rem, 5.3vw, 5.6rem)/1 var(--serif); letter-spacing: -.045em; }
 .about-copy { padding-top: 3rem; }
 .about-copy .lead { color: var(--ink); font: 500 clamp(1.25rem, 2vw, 1.65rem)/1.45 var(--serif); }
 .about-copy p:not(.lead) { color: #666355; }
@@ -155,13 +155,17 @@ h1 em, h2 em { color: var(--olive); font-weight: 500; }
 
 .portfolio { background: var(--cream); }
 .portfolio-heading { display: flex; align-items: end; justify-content: space-between; gap: 2rem; margin-bottom: 4rem; }
-.portfolio-heading h2 { max-width: 11ch; margin-bottom: 0; }
+.portfolio-heading h2 { max-width: none; margin-bottom: 0; }
 .filter-controls { display: flex; gap: .5rem; flex-wrap: wrap; justify-content: flex-end; }
 .filter-button { border: 1px solid var(--line); border-radius: 99px; background: transparent; padding: .48rem .9rem; cursor: pointer; color: #6b685a; font-size: .7rem; transition: .2s; }
 .filter-button:hover, .filter-button.is-active { background: var(--ink); border-color: var(--ink); color: var(--white); }
 .portfolio-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(1rem, 2.5vw, 2.5rem); }
+.portfolio-grid-single { grid-template-columns: minmax(14rem, 20rem) 1fr; align-items: start; }
 .project-card { min-width: 0; transition: opacity .25s, transform .25s; }
 .project-card.is-hidden { display: none; }
+.portfolio-grid-single .project-card { display: grid; grid-template-columns: subgrid; grid-column: 1 / -1; gap: clamp(1.5rem, 4vw, 3rem); }
+.book-cover { aspect-ratio: .66; overflow: hidden; box-shadow: 0 1.2rem 3rem rgba(39,39,31,.12); }
+.book-cover img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .book-art { aspect-ratio: .82; padding: 2rem; display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative; overflow: hidden; text-align: center; background: #6f704c; color: #f7eddc; box-shadow: 0 1.2rem 3rem rgba(39,39,31,.08); }
 .book-art::before { content: ""; position: absolute; width: 80%; aspect-ratio: 1; border: 1px solid rgba(255,255,255,.26); border-radius: 50%; }
 .book-art::after { content: ""; position: absolute; width: 1px; height: 22%; top: 0; background: rgba(255,255,255,.34); }
@@ -177,10 +181,18 @@ h1 em, h2 em { color: var(--olive); font-weight: 500; }
 .project-info { padding: 1.4rem .2rem 1rem; }
 .project-info > span { color: var(--olive); font-size: .6rem; font-weight: 600; text-transform: uppercase; letter-spacing: .12em; }
 .project-info h3 { margin: .35rem 0 .45rem; font: 500 clamp(1.25rem, 2vw, 1.65rem) var(--serif); }
-.project-info p { margin: 0; color: #6f6b5c; font-size: .83rem; }
-.testimonial { max-width: 67rem; margin: var(--section-pad) auto 0; text-align: center; }
+.project-info p { margin: 0 0 .9rem; color: #6f6b5c; font-size: .83rem; }
+.project-author { font-style: italic; color: var(--olive); }
+.audible-badge { display: inline-flex; align-items: center; gap: .6rem; margin-top: .5rem; padding: .8rem 1.2rem; background: var(--ink); color: var(--cream); border-radius: 99px; font: 500 .8rem/1 var(--sans); text-transform: none; letter-spacing: normal; transition: background .25s, transform .25s; }
+.audible-badge:hover { background: var(--olive); transform: translateY(-2px); }
+.audible-badge em { font-style: normal; font-weight: 600; }
+.audible-badge-icon { width: 1.3rem; height: 1.3rem; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
+.testimonials { background: var(--paper); }
+.testimonials-heading { margin-bottom: 4rem; }
+.testimonials-heading h2 { max-width: none; margin-bottom: 0; }
+.testimonial { max-width: 52rem; margin: 0; padding-block: 2rem; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); text-align: left; }
 .testimonial .quote-mark { display: block; }
-.testimonial blockquote { margin: 0 auto 2rem; font: italic 500 clamp(1.65rem, 3.5vw, 3.25rem)/1.35 var(--serif); }
+.testimonial blockquote { margin: 0 auto 1rem; font: italic 500 clamp(1rem, 1.3vw, 1.25rem)/1.6 var(--serif); }
 .testimonial p strong, .testimonial p span { display: block; }
 .testimonial p strong { font-size: .75rem; }
 .testimonial p span { color: #888373; font-size: .62rem; text-transform: uppercase; letter-spacing: .12em; }
@@ -253,6 +265,9 @@ h1 em, h2 em { color: var(--olive); font-weight: 500; }
   .filter-controls { justify-content: flex-start; margin-top: 2rem; }
   .portfolio-grid { grid-template-columns: 1fr 1fr; }
   .project-card:last-child { grid-column: 1 / -1; width: calc(50% - .5rem); }
+  .portfolio-grid-single { grid-template-columns: 1fr; }
+  .portfolio-grid-single .project-card { grid-template-columns: 1fr; }
+  .portfolio-grid-single .book-cover { max-width: 16rem; }
   .contact { grid-template-columns: 1fr; }
   .site-footer { flex-wrap: wrap; }
 }
@@ -264,13 +279,14 @@ h1 em, h2 em { color: var(--olive); font-weight: 500; }
   .about { grid-template-columns: 1fr; }
   .section-number { display: none; }
   .about-heading, .about-copy { grid-column: 1; }
-  .about-heading h2, .portfolio h2 { font-size: 2.9rem; }
+  .about-heading h2, .portfolio h2, .testimonials h2 { font-size: 2.9rem; }
   .about-note { grid-template-columns: 1fr; padding-inline: .5rem; }
   .sample-meta { gap: .65rem; }
   .sample-meta div > span { line-height: 1.3; display: block; }
   .portfolio-grid { grid-template-columns: 1fr; gap: 2.5rem; }
   .project-card:last-child { grid-column: auto; width: auto; }
   .book-art { aspect-ratio: .9; }
+  .portfolio-grid-single .book-cover { max-width: 12rem; }
   .form-row { grid-template-columns: 1fr; gap: 0; }
   .contact-facts { gap: 1.5rem; }
   .form-footer { align-items: stretch; flex-direction: column; }
